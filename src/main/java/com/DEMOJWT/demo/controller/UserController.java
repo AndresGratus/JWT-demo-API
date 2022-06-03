@@ -1,6 +1,7 @@
 package com.DEMOJWT.demo.controller;
 
 import com.DEMOJWT.demo.dto.User;
+import com.DEMOJWT.demo.service.UserService;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import repositories.RepositorioUser;
+import com.DEMOJWT.demo.repositories.RepositorioUser;
 
 import java.util.Date;
 import java.util.List;
@@ -20,10 +21,12 @@ public class UserController {
 
     @Autowired
     private RepositorioUser repositorioUser;
+    @Autowired
+    private UserService userService;
 
-    @PostMapping("user")
-    public User login(@RequestParam("user") String username, @RequestParam("password") String pwd) {
-
+    @PostMapping("/login")
+    public User login(@RequestParam("user") dto User, @RequestParam("password") String pwd) {
+        User accp = userService.loadById(User.getId());
         String token = getJWTToken(username);
         User user = new User();
         user.setUser(username);

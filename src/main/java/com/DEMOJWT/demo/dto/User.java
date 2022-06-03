@@ -1,6 +1,14 @@
 package com.DEMOJWT.demo.dto;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class User {
+    @Id
+    @Column
+    private Long id;
     private String user;
     private String pwd;
     private String token;
@@ -27,5 +35,13 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
